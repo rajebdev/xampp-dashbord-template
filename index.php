@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/w3.css">
         <link id="color-changer" rel="stylesheet" href="css/color/red.css">
         <style>
             .hexagon-item{
@@ -38,27 +39,29 @@
             }
             .page-home .overlay{
                 background-color: rgba(255, 255, 255, 0.46) !important;
+                z-index: -1;
             }
+            
         </style>
     </head>
 
     <body>
 
-        <div class="preloader">
+        <!-- <div class="preloader">
             <div class="loading-mask"></div>
             <div class="loading-mask"></div>
             <div class="loading-mask"></div>
             <div class="loading-mask"></div>
             <div class="loading-mask"></div>
-        </div>
+        </div> -->
 
 
         <main class="site-wrapper">
             <div class="pt-table">
-                <div class="pt-tablecell page-home relative" style="background-image: url('img/banner.jpg');">
+                <div class="pt-tablecell page-home relative" style="background-image: url('img/banner.jpg'); z-index: 1;">
                     <div class="overlay"></div>
 
-                    <div class="container">
+                    <div class="container" style="margin-top: -15px;">
                         <div class="row">
                             <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
                                 <div class="page-title home text-center">
@@ -94,6 +97,7 @@
                                             $opendir = opendir($dir);
                                             $count  = 1;
                                             $arrData = [];
+                                            $arrData[] = '';
                                             while($file = readdir($opendir)) {
                                                 if(!is_file($file) && $file<>'.' && $file<>'..') {
                                                     if($file != 'index.html'){
@@ -102,13 +106,16 @@
                                                     }
                                                 }
                                             }
-                                            $jumlahData = $count;
-                                            $page == 1 ? $dataPerPage = 6 : $dataPerPage = 7;
+                                            $jumlahData = count($arrData);
+
+                                            $dataPerPage = 7;
+
                                             $awalPage = ($page-1)*$dataPerPage;
+                                    
                                             $jumlahPage = ceil($jumlahData/$dataPerPage);
-                                            $akhirPage = $page*$dataPerPage;
-                                            if ($page == $jumlahPage ) {
-                                                $akhirPage = $jumlahData-2;
+                                            $akhirPage = ($page-1)*$dataPerPage+6;
+                                            if ($page == $jumlahPage) {
+                                                $akhirPage = $jumlahData-1;
                                             }
                                             if(file_exists($arrData[$awalPage].'/favicon.ico')) {
                                                 $icon = $arrData[$awalPage].'/icon.png';
@@ -176,8 +183,7 @@
                                     <!-- Mulai memanggil direktori project -->
                                     
                                     <?php
-                                        $page == 1 ? $awalPage += 0 : $awalPage += 1;
-                                        // $page == $jumlahPage ? $akhirPage += 1 : $akhirPage += 0;
+                                        $awalPage += 1;
                                         $count  = 1;
                                         $col = 0;
                                         $row = 4;
@@ -333,10 +339,44 @@
                             </div> <!-- /.col-xs-12 -->
 
                         </div> <!-- /.row -->
-                    </div> <!-- /.container -->
-
+                    </div> <!-- /.container -->                            
+                    <ul class="pager">
+                        <li><a 
+                        style="
+                            color: #000;
+                            font-family: 'Fira Code';
+                            border: none;
+                            padding:10px 30px;
+                            font-weight: bold;
+                            margin: 0px 30px;
+                            border-radius: 20px;
+                            <?= $page==1 || empty($page) ? 'color: currentColor;
+                                cursor: not-allowed;
+                                opacity: 0.5;
+                                text-decoration: none;' : ''; ?>
+                            "
+                        href="?page=<?= $page-1 ?>">Prev</a></li>
+                        <li><a 
+                        style="
+                            color: #000;
+                            font-family: 'Fira Code';
+                            border: none;
+                            padding: 10px 30px;
+                            font-weight: bold;
+                            margin: 0px 30px;
+                            border-radius: 20px;
+                            <?= $page==$jumlahPage ? 'color: currentColor;
+                                cursor: not-allowed;
+                                opacity: 0.5;
+                                text-decoration: none;' : ''; ?>
+                            " 
+                            
+                        href="?page=<?= $page+1 ?>">Next</a></li>
+                    </ul>                    
                 </div> <!-- /.pt-tablecell -->
+                
             </div> <!-- /.pt-table -->
+            
         </main> <!-- /.site-wrapper -->
         
         <!-- ================================
