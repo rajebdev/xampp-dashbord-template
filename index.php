@@ -84,12 +84,12 @@
                                 <div class="hexagon-menu clear" style="margin-left: 5%;">
                                     <?php
                                             $page = 1;
-                                            if (isset($_GET['page'])) {
-                                                if (empty($_GET['page'])) {
+                                            if (isset($_GET['p'])) {
+                                                if (empty($_GET['p'])) {
                                                     $page = 1;
                                                 }
                                                 else {
-                                                    $page = $_GET['page'];
+                                                    $page = $_GET['p'];
                                                 }
                                             }
                                             
@@ -113,9 +113,15 @@
                                             $awalPage = ($page-1)*$dataPerPage;
                                     
                                             $jumlahPage = ceil($jumlahData/$dataPerPage);
+
                                             $akhirPage = ($page-1)*$dataPerPage+6;
                                             if ($page == $jumlahPage) {
                                                 $akhirPage = $jumlahData-1;
+                                            }
+
+                                            if ($jumlahData < $akhirPage) {
+                                                header("location: ./");
+                                                exit;
                                             }
                                             if(file_exists($arrData[$awalPage].'/favicon.ico')) {
                                                 $icon = $arrData[$awalPage].'/icon.png';
@@ -355,7 +361,7 @@
                                 opacity: 0.5;
                                 text-decoration: none;' : ''; ?>
                             "
-                        href="?page=<?= $page-1 ?>">Prev</a></li>
+                        href="?p=<?= $page-1 ?>">Prev</a></li>
                         <li><a 
                         style="
                             color: #000;
@@ -371,7 +377,7 @@
                                 text-decoration: none;' : ''; ?>
                             " 
                             
-                        href="?page=<?= $page+1 ?>">Next</a></li>
+                        href="?p=<?= $page+1 ?>">Next</a></li>
                     </ul>                    
                 </div> <!-- /.pt-tablecell -->
                 
