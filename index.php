@@ -69,7 +69,11 @@
                                         font-family: 'Fira Code';
                                     "
                                     >RAJEB DEV</h1>
-                                    <p style="color: black;">
+                                    <p style="
+                                        font-weight: bold;
+                                        font-family: 'Fira Code';
+                                        color: #000;
+                                    ">
                                         ... Make Everything is Real ...
                                     </p>
                                 </div>
