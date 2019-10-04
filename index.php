@@ -93,14 +93,14 @@
                                                 }
                                             }
                                             
-                                            $dir = "../web/";
+                                            $dir = "../Web/";
                                             $opendir = opendir($dir);
                                             $count  = 1;
                                             $arrData = [];
                                             $arrData[] = '';
                                             while($file = readdir($opendir)) {
                                                 if(!is_file($file) && $file<>'.' && $file<>'..') {
-                                                    if($file != 'index.html'){
+                                                    if($file != 'index.html' && $file != 'desktop.ini'){
                                                         $count++;
                                                         $arrData[] = $file;
                                                     }
